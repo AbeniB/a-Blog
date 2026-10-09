@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <title><%= typeof pageTitle === "undefined" ? "a-Blog" : pageTitle + " · a-Blog" %></title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="/" aria-label="a-Blog home"><span class="brand-mark">ab.</span><span>a-Blog<small>NOTES FOR THE EVERYDAY</small></span></a>
+      <nav aria-label="Main navigation">
+        <a href="/">Stories</a><a href="/about">About</a><a href="/contact">Contact</a>
+        <% if (currentUser) { %>
+          <span class="nav-greeting">Hi, <%= currentUser.name.split(' ')[0] %></span>
+          <a class="nav-write" href="/compose">Write a story <span aria-hidden="true">↗</span></a>
+          <form class="nav-logout" action="/logout" method="post"><input type="hidden" name="csrfToken" value="<%= csrfToken %>"><button type="submit">Log out</button></form>
+        <% } else { %>
+          <a class="nav-login" href="/login">Log in</a><a class="nav-write" href="/register">Create account <span aria-hidden="true">↗</span></a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+  <main class="page-shell">

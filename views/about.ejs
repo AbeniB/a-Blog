@@ -1,0 +1,3 @@
+<%- include("partials/header") %>
+<section class="simple-page"><span class="eyebrow">A NOTE FROM ABENEZER</span><h1>Small thoughts.<br><em>Big feelings.</em></h1><p><%= content %></p><a class="button button-dark" href="<%= currentUser ? '/compose' : '/register' %>">Add your voice <span aria-hidden="true">↗</span></a><div class="simple-stamp">lj.<span>since whenever</span></div></section>
+<%- include("partials/footer") %>

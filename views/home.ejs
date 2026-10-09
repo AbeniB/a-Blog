@@ -1,0 +1,31 @@
+<%- include("partials/header") %>
+<section class="hero">
+  <div class="hero-copy"><span class="eyebrow"><span class="eyebrow-dot"></span> A journal for the in-between</span>
+    <h1>Every day has<br>a <em>story</em> in it.</h1>
+    <p>A little space to slow down, gather your thoughts, and share what matters to you.</p>
+    <a class="button button-dark" href="<%= currentUser ? '/compose' : '/register' %>"><%= currentUser ? "Write your first draft" : "Create your account" %> <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div><div class="art-note">take your time <span>✳</span></div></div>
+</section>
+<section class="stories-section" id="stories">
+  <div class="section-heading"><div><span class="eyebrow">THE JOURNAL</span><h2>Latest stories <span class="count"><%= posts.length %></span></h2></div>
+    <% if (posts.length) { %><label class="search-box"><span aria-hidden="true">⌕</span><input id="story-search" type="search" placeholder="Find a story..." aria-label="Search stories"></label><% } %>
+  </div>
+  <% if (!posts.length) { %>
+    <div class="empty-state"><div class="empty-icon">✎</div><h3>The first page is yours.</h3><p>There are no stories here just yet. Start with a thought you can’t stop thinking about.</p><a class="button button-dark" href="<%= currentUser ? '/compose' : '/register' %>"><%= currentUser ? "Write a story" : "Create your account" %> <span aria-hidden="true">↗</span></a></div>
+  <% } else { %>
+    <div class="story-grid" id="story-grid">
+    <% posts.forEach(function(post, index) { %>
+      <article class="story-card" data-search="<%= (post.title + ' ' + post.content).toLowerCase() %>">
+        <div class="card-topline"><span class="card-number"><%= String(index + 1).padStart(2, "0") %></span><span><%= post.dateLabel %></span></div>
+        <h3><a href="/posts/<%= post._id %>"><%= post.title %></a></h3>
+        <div class="card-author"><span class="mini-avatar"><%= post.authorName.trim().charAt(0).toUpperCase() %></span> <%= post.authorName %></div>
+        <p><%= post.content.length > 190 ? post.content.slice(0, 190).trimEnd() + "…" : post.content %></p>
+        <a class="read-link" href="/posts/<%= post._id %>">Read story <span aria-hidden="true">↗</span></a>
+      </article>
+    <% }) %>
+    </div>
+    <p class="no-results" id="no-results" hidden>No stories match that search. Try another word.</p>
+  <% } %>
+</section>
+<%- include("partials/footer") %>

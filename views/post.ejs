@@ -1,0 +1,9 @@
+<%- include("partials/header") %>
+<article class="post-page">
+  <a class="back-link" href="/">← All stories</a>
+  <header class="post-header"><span class="eyebrow">A STORY FROM THE JOURNAL</span><h1><%= post.title %></h1><div class="post-byline"><span class="author-mark"><%= post.authorName.trim().charAt(0).toUpperCase() %></span><span>By <%= post.authorName %></span><span class="byline-separator">·</span><time><%= post.dateLabel %></time></div></header>
+  <div class="post-rule"></div><div class="post-content"><%= post.content %></div>
+  <% if (post.isOwner) { %><div class="post-actions"><a class="button button-outline" href="/posts/<%= post._id %>/edit">Edit story</a><form action="/posts/<%= post._id %>/delete" method="post" data-confirm="Delete this story? This can’t be undone."><input type="hidden" name="csrfToken" value="<%= csrfToken %>"><button class="text-link delete-link" type="submit">Delete story</button></form></div><% } %>
+  <div class="more-writing"><span>✳</span><p>Have a story of your own?<br><a href="<%= currentUser ? '/compose' : '/register' %>">There’s room for it here.</a></p></div>
+</article>
+<%- include("partials/footer") %>

@@ -1,0 +1,17 @@
+<%- include("partials/header") %>
+<section class="editor-page">
+  <a class="back-link" href="<%= editing ? '/posts/' + postId : '/' %>">← <%= editing ? "Back to story" : "Back to stories" %></a>
+  <div class="editor-heading"><span class="eyebrow"><%= editing ? "KEEP THE GOOD WORDS COMING" : "YOUR SPACE, YOUR STORY" %></span><h1><%= editing ? "Edit your story" : "Start with a thought." %></h1><p><%= editing ? "Make a change, then save your story." : "No perfect words needed. Just begin." %></p></div>
+  <% if (error) { %><div class="form-error" role="alert"><%= error %></div><% } %>
+  <form class="story-form" action="<%= editing ? '/posts/' + postId + '/edit' : '/compose' %>" method="post">
+    <input type="hidden" name="csrfToken" value="<%= csrfToken %>">
+    <label for="postTitle">Give it a title <span>Required</span></label>
+    <input id="postTitle" name="postTitle" type="text" maxlength="120" required placeholder="A title that feels like you" value="<%= values.title || '' %>">
+    <div class="field-meta"><span>Make it yours</span><span><span id="title-count"><%= (values.title || '').length %></span> / 120</span></div>
+    <label for="postBody">Your story <span>Required</span></label>
+    <textarea id="postBody" name="postBody" rows="12" maxlength="20000" required placeholder="Start anywhere…"><%= values.content || '' %></textarea>
+    <div class="field-meta"><span>Take your time. Your story saves when you publish.</span><span><span id="body-count"><%= (values.content || '').length %></span> / 20,000</span></div>
+    <div class="form-actions"><a class="text-link" href="<%= editing ? '/posts/' + postId : '/' %>">Cancel</a><button class="button button-dark" type="submit"><%= editing ? "Save changes" : "Publish story" %> <span aria-hidden="true">↗</span></button></div>
+  </form>
+</section>
+<%- include("partials/footer") %>

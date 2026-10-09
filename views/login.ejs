@@ -1,0 +1,15 @@
+<%- include("partials/header") %>
+<section class="auth-page">
+  <a class="back-link" href="/">← Back to stories</a>
+  <div class="auth-card"><span class="eyebrow">WELCOME BACK</span><h1>Good to see you.</h1><p class="auth-intro">Log in to write and manage your stories.</p>
+    <% if (error) { %><div class="form-error" role="alert"><%= error %></div><% } %>
+    <form class="story-form auth-form" action="/login" method="post">
+      <input type="hidden" name="csrfToken" value="<%= csrfToken %>"><input type="hidden" name="next" value="<%= nextUrl %>">
+      <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required value="<%= values.email || '' %>" placeholder="you@example.com">
+      <label for="password">Password</label><input id="password" name="password" type="password" maxlength="128" autocomplete="current-password" required placeholder="Your password">
+      <button class="button button-dark auth-submit" type="submit">Log in <span aria-hidden="true">↗</span></button>
+    </form>
+    <p class="auth-switch">New to the journal? <a href="/register">Create an account</a></p>
+  </div>
+</section>
+<%- include("partials/footer") %>
